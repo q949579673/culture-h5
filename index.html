@@ -153,9 +153,9 @@
         <li class="menu-item current" onclick="goToSection('home')">首页 · 特刊封面</li>
         <li class="menu-item" onclick="goToSection('sec-overview')">01. 数据大观 (Trends)</li>
         <li class="menu-item" onclick="goToSection('sec-turning')">02. 关键转折 (Turning Point)</li>
-        <li class="menu-item" onclick="goToSection('sec-sentiment')">03. 文化温度 (Sentiment) <span style="font-size:10px;color:red;vertical-align:top;">NEW</span></li>
-        <li class="menu-item" onclick="goToSection('sec-graph')">04. 语义星系 (Galaxy) <span style="font-size:10px;color:red;vertical-align:top;">NEW</span></li>
-        <li class="menu-item" onclick="goToSection('sec-matrix')">05. 融媒矩阵 (Matrix) <span style="font-size:10px;color:red;vertical-align:top;">NEW</span></li>
+        <li class="menu-item" onclick="goToSection('sec-sentiment')">03. 文化温度 (Sentiment)</li>
+        <li class="menu-item" onclick="goToSection('sec-graph')">04. 语义星系 (Galaxy)</li>
+        <li class="menu-item" onclick="goToSection('sec-matrix')">05. 融媒矩阵 (Matrix)</li>
         <li class="menu-item" onclick="goToSection('sec-rural')">06. 乡村振兴 (Rural)</li>
         <li class="menu-item" onclick="goToSection('sec-tech')">07. 科技赋能 (Tech)</li>
         <li class="menu-item" onclick="goToSection('sec-structure')">08. 内外结构 (Structure)</li>
@@ -355,12 +355,12 @@
     const tradData = [2748,2771,3652,4952,4320,5570,6350,6054,5840,6300,5230,5510,3200];
     const techData = [593,289,612,890,1250,2100,3400,5200,7500,9200,10500,12100,8500];
 
-    // [New] 情感数据 (模拟)
+    // 情感数据 (模拟)
     const sentimentYears = ['2010','2012','2014','2016','2018','2020','2022','2024'];
     const sentObjective = [80, 78, 75, 72, 70, 68, 65, 60]; // 客观下降
     const sentEmotional = [20, 35, 45, 60, 75, 82, 90, 95]; // 自信上升
 
-    // [New] 知识图谱数据
+    // 知识图谱数据
     const graphNodes = [
         {name: "中国", value: 6379, symbolSize: 60, category: 0},
         {name: "文化", value: 1419, symbolSize: 45, category: 1},
@@ -380,7 +380,7 @@
         {source:"人民", target:"中国"}, {source:"自信", target:"人民"}, {source:"非遗", target:"数字化"}
     ];
 
-    // [New] 融媒矩阵数据 (旭日图)
+    // 融媒矩阵数据 (旭日图)
     const matrixData = [
         {
             name: '2000年',
@@ -431,9 +431,9 @@
         setTimeout(() => {
             if(secId === 'sec-overview') initChartOverview();
             if(secId === 'sec-turning') initChartTurning();
-            if(secId === 'sec-sentiment') initChartSentiment(); // New
-            if(secId === 'sec-graph') initChartGraph(); // New
-            if(secId === 'sec-matrix') initChartMatrix(); // New
+            if(secId === 'sec-sentiment') initChartSentiment(); //
+            if(secId === 'sec-graph') initChartGraph(); //
+            if(secId === 'sec-matrix') initChartMatrix(); //
             if(secId === 'sec-rural') initChartRural();
             if(secId === 'sec-tech') initChartTech();
             if(secId === 'sec-structure') initChartStructure();
@@ -477,7 +477,7 @@
         });
     }
 
-    // 3. [NEW] 文化温度 (情感分析)
+    // 3.  文化温度 (情感分析)
     function initChartSentiment() {
         const chart = echarts.init(document.getElementById('chart-sentiment'));
         chart.setOption({
@@ -492,7 +492,7 @@
         });
     }
 
-    // 4. [NEW] 语义星系 (力导向图)
+    // 4.  语义星系 (力导向图)
     function initChartGraph() {
         const chart = echarts.init(document.getElementById('chart-graph'));
         chart.setOption({
@@ -515,7 +515,7 @@
         });
     }
 
-    // 5. [NEW] 融媒矩阵 (旭日图)
+    // 5. 融媒矩阵 (旭日图)
     function initChartMatrix() {
         const chart = echarts.init(document.getElementById('chart-matrix'));
         chart.setOption({
@@ -597,3 +597,4 @@
 </script>
 </body>
 </html>
+
