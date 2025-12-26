@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>文脉流转：21世纪《人民日报》传统文化双创传播图谱</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <style>
+        /* --- 1. 全局基础设定 --- */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f5f5; }
+        
+        /* 核心配色：故宫红 & 科技蓝 */
+        :root {
+            --red: #B03A2E; 
+            --blue: #1F618D;
+            --gold: #D4AC0D;
+            --ink: #2C3E50;
+            --white-card: rgba(255, 255, 255, 0.92);
+        }
+
+        .swiper { width: 100%; height: 100%; }
+        
+        /* --- 2. 幻灯片通用样式 --- */
+        .swiper-slide {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* 默认背景：淡米色宣纸质感 */
+            background-color: #fcf9f2;
+            background-image: radial-gradient(#e6e2d8 1px, transparent 0);
+            background-size: 20px 20px;
+        }
+
+        /* --- 3. 背景图片层 (遮罩) --- */
+        .bg-layer {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center; z-index: 0; opacity: 0.15;
+            filter: grayscale(80%);
+            transition: all 1.5s ease;
+        }
+        /* 不同的背景图设置 */
+        .bg-ink { background-image: url('https://images.unsplash.com/photo-1516546453174-5e1098a4b4af?q=80&w=1000&auto=format&fit=crop'); }
+        .bg-tech { background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop'); opacity: 0.2; }
+        .bg-red { background-image: url('https://images.unsplash.com/photo-1548695607-9c73430ba065?q=80&w=1000&auto=format&fit=crop'); opacity: 0.2; }
+
+        /* --- 4. 内容容器 --- */
+        .content-box {
+            position: relative; z-index: 2; width: 88%; height: 90%;
+            margin-top: 5%;
+            display: flex; flex-direction: column;
+        }
+
+        /* 卡片式设计 */
+        .card {
+            background: var(--white-card);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        /* --- 5. 文字排版 --- */
+        .vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-family: "Songti SC", "SimSun", serif;
+            font-size: 24px;
+            color: var(--ink);
+            position: absolute;
+            right: 20px; top: 60px;
+            letter-spacing: 5px;
+            border-left: 2px solid var(--red);
+            padding-left: 10px;
+            height: 200px;
+        }
+
+        .main-title { font-size: 26px; color: var(--red); font-weight: bold; margin: 0 0 10px 0; font-family: "Songti SC", serif; }
+        .sub-title { font-size: 14px; color: #666; letter-spacing: 1px; margin-bottom: 5px; text-transform: uppercase; }
+        .highlight { color: var(--blue); font-weight: bold; }
+        .text-body { font-size: 14px; line-height: 1.6; color: #444; text-align: justify; }
+
+        /* --- 6. 装饰元素 --- */
+        .stamp {
+            position: absolute; bottom: 50px; right: 30px;
+            width: 40px; height: 40px; border: 2px solid var(--red); color: var(--red);
+            font-size: 12px; display: flex; align-items: center; justify-content: center;
+            border-radius: 4px; transform: rotate(-5deg); opacity: 0.8; font-family: serif;
+        }
+
+        /* 底部箭头 */
+        .arrow-up {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 24px; height: 24px; z-index: 10;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23B03A2E'%3E%3Cpath d='M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z'/%3E%3C/svg%3E") no-repeat center;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform:translateX(-50%) translateY(0);} 40% {transform:translateX(-50%) translateY(-10px);} 60% {transform:translateX(-50%) translateY(-5px);} }
+
+        /* 图表容器 */
+        .chart-box { width: 100%; height: 350px; margin-top: 10px; }
+
+    </style>
+</head>
+<body>
+
+<div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+
+        <div class="swiper-slide">
+            <div class="bg-layer bg-ink" style="opacity: 0.3;"></div>
+            
+            <div class="content-box" style="justify-content: center; align-items: center; text-align: center;">
+                <div class="animate__animated animate__fadeInDown">
+                    <img src="https://img.icons8.com/color/96/china.png" style="width: 60px; margin-bottom: 20px;">
+                    <div style="font-size: 14px; color: #555; letter-spacing: 4px; margin-bottom: 10px;">数据新闻作品</div>
+                    <h1 style="font-size: 42px; color: var(--ink); margin: 0; font-family: 'Songti SC', serif; line-height: 1.2;">文脉<br><span style="color:var(--red)">流转</span></h1>
+                </div>
+                
+                <div class="card animate__animated animate__fadeInUp animate__delay-1s" style="margin-top: 40px; width: 100%;">
+                    <p class="text-body" style="text-align: center;">21世纪《人民日报》<br>传统文化“双创”传播数据透视</p>
+                    <div style="height: 1px; background: #ddd; margin: 15px 0;"></div>
+                    <p style="font-size: 12px; color: #999;">数据跨度：2000 - 2024</p>
+                </div>
+            </div>
+            <div class="arrow-up"></div>
+        </div>
+
+        <div class="swiper-slide">
+            <div class="bg-layer bg-ink"></div>
+            <div class="vertical-text animate__animated animate__fadeInRight">海量数据见证变迁</div>
+            
+            <div class="content-box">
+                <div class="card animate__animated animate__fadeInLeft">
+                    <div class="sub-title">DATA OVERVIEW</div>
+                    <div class="main-title">数据基座</div>
+                    <div style="display: flex; justify-content: space-around; margin-top: 20px;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 28px; color: var(--red); font-weight: 800;">24</div>
+                            <div style="font-size: 12px; color: #666;">年跨度</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 28px; color: var(--blue); font-weight: 800;">84w+</div>
+                            <div style="font-size: 12px; color: #666;">篇报道</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 28px; color: var(--gold); font-weight: 800;">2.1亿</div>
+                            <div style="font-size: 12px; color: #666;">总字数</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-body animate__animated animate__fadeInUp animate__delay-1s" style="padding: 10px;">
+                    我们利用Python对《人民日报》全量文本进行了清洗与挖掘。这是一场跨越四分之一个世纪的文化长跑。
+                </div>
+            </div>
+            <div class="arrow-up"></div>
+        </div>
+
+        <div class="swiper-slide">
+            <div class="bg-layer bg-red"></div>
+            <div class="content-box">
+                <div class="card animate__animated animate__fadeInDown">
+                    <div class="sub-title">AGENDA SETTING</div>
+                    <div class="main-title">议程设置与共振</div>
+                    <p class="text-body">2012年（十八大）与2017年（双创意见）是两个显著的波峰。媒体议程紧随国家战略，文化报道从“边缘”走向“中心”。</p>
+                </div>
+                <div id="chart1" class="chart-box animate__animated animate__zoomIn animate__delay-1s"></div>
+            </div>
+            <div class="arrow-up"></div>
+        </div>
+
+        <div class="swiper-slide">
+            <div class="bg-layer" style="background: linear-gradient(135deg, #fff 0%, #eef2f3 100%);"></div>
+            <div class="content-box">
+                <div class="sub-title" style="text-align: center; margin-top: 20px;">KEY TRANSITION</div>
+                <h2 style="text-align: center; color: var(--ink); margin-bottom: 30px;">话语体系的十年之变</h2>
+                
+                <div class="animate__animated animate__fadeInLeft" style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div style="width: 45%; text-align: right; padding-right: 10px; border-right: 2px solid var(--red);">
+                        <div style="font-size: 24px; color: var(--red); font-weight: bold;">2012</div>
+                        <div style="font-size: 12px; color: #666;">抢救 · 保护 · 遗产</div>
+                        <div style="font-size: 12px; color: #999; margin-top: 5px;">"守住文化的根"</div>
+                    </div>
+                    <div style="width: 10%; text-align: center; color: #ccc;">VS</div>
+                    <div style="width: 45%; text-align: left; padding-left: 10px; border-left: 2px solid var(--blue);">
+                        <div style="font-size: 24px; color: var(--blue); font-weight: bold;">2022</div>
+                        <div style="font-size: 12px; color: #666;">数字 · 沉浸 · 国潮</div>
+                        <div style="font-size: 12px; color: #999; margin-top: 5px;">"插上科技的翼"</div>
+                    </div>
+                </div>
+
+                <div class="card animate__animated animate__fadeInUp animate__delay-1s">
+                    <p class="text-body">
+                        数据表明，关于“文化遗产”的报道框架，已从<span style="color:var(--red)">防御性的抢救</span>转向<span style="color:var(--blue)">主动性的创造</span>。
+                    </p>
+                </div>
+            </div>
+            <div class="arrow-up"></div>
+        </div>
+
+        <div class="swiper-slide">
+            <div class="bg-layer bg-tech"></div>
+            <div class="content-box">
+                <div class="card animate__animated animate__fadeInDown">
+                    <div class="sub-title">FRAMING ANALYSIS</div>
+                    <div class="main-title">传统与科技的<span style="color:var(--blue)">交响</span></div>
+                    <p class="text-body">观察下方蓝线（科技词频）。2015年“互联网+”提出后，技术类词汇开始爬升；2019年后呈爆发式增长。</p>
+                </div>
+                <div id="chart2" class="chart-box animate__animated animate__fadeInUp animate__delay-1s"></div>
+            </div>
+            <div class="arrow-up"></div>
+        </div>
+
+        <div class="swiper-slide">
+            <div class="bg-layer" style="background-color: #1a1a1a;"></div> <div class="content-box">
+                <div class="main-title" style="color: #fff; text-align: center;">技术赋能关键词</div>
+                <div class="sub-title" style="color: #888; text-align: center;">TECH ENABLEMENT</div>
+                
+                <div id="techCloud" style="width: 100%; height: 60%; position: relative; margin-top: 30px;">
+                    </div>
+                
+                <div class="text-body" style="color: #aaa; text-align: center; margin-top: 20px;">
+                    VR、元宇宙、云端、算法...<br>这些词正在重塑传统文化的表达方式。
+                </div>
+            </div>
+            <div class="arrow-up"></div>
+        </div>
+
+        <div class="swiper-slide">
+            <div class="bg-layer bg-ink" style="opacity: 0.1;"></div>
+            <div class="content-box">
+                <div class="card animate__animated animate__fadeInRight">
+                    <div class="sub-title">SEMANTIC NETWORK</div>
+                    <div class="main-title">核心关注点</div>
+                    <p class="text-body">除去通用词，我们发现“服务”、“合作”、“农村”高频出现。文化不仅是阳春白雪，更是乡村振兴与社会服务的抓手。</p>
+                </div>
+                <div id="chart3" class="chart-box animate__animated animate__fadeInLeft animate__delay-1s"></div>
+            </div>
+            <div class="arrow-up"></div>
+        </div>
+
+        <div class="swiper-slide">
+            <div class="bg-layer bg-red"></div>
+            <div class="content-box" style="justify-content: center; text-align: center;">
+                <div style="border: 4px double var(--ink); padding: 30px; background: rgba(255,255,255,0.95);">
+                    <h2 class="main-title" style="font-size: 32px; margin-bottom: 20px;">融媒表达<br>文化自信</h2>
+                    <p class="text-body" style="text-align: center;">
+                        从“纸面”到“界面”<br>
+                        从“静态”到“活态”<br>
+                        <br>
+                        21世纪的《人民日报》<br>
+                        记录了中华文化<br>
+                        最壮丽的数字转身
+                    </p>
+                    <div style="margin-top: 30px; font-size: 12px; color: #999;">
+                        指导老师：XXX<br>
+                        制作：XXX<br>
+                        2024.05
+                    </div>
+                </div>
+                <div class="stamp">完</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // --- 1. 数据源 (基于之前的分析结果) ---
+    const trendData = {
+        years: ['2000','2002','2004','2006','2008','2010','2012','2014','2016','2018','2020','2022','2024'],
+        counts: [34710,34809,38721,36602,32635,43088,37425,40549,37389,34201,25915,22273,17111]
+    };
+    
+    // 关键词对比 (截取部分年份)
+    const yearsFull = ['00','02','04','06','08','10','12','14','16','18','20','22','24'];
+    const tradData = [2748,2771,3652,4952,4320,5570,6350,6054,5840,6300,5230,5510,3200]; 
+    const techData = [593,289,612,890,1250,2100,3400,5200,7500,9200,10500,12100,8500];
+
+    const topWords = [
+        {name: '文化', value: 1419}, {name: '创新', value: 961}, {name: '合作', value: 1080}, 
+        {name: '教育', value: 1064}, {name: '服务', value: 917}, {name: '农村', value: 853},
+        {name: '科技', value: 750}, {name: '历史', value: 720}
+    ];
+
+    // --- 2. Swiper 初始化 ---
+    var swiper = new Swiper(".mySwiper", {
+        direction: "vertical",
+        effect: "slide",
+        speed: 600,
+        mousewheel: true,
+        on: {
+            slideChangeTransitionEnd: function () {
+                const idx = this.activeIndex;
+                if(idx === 2) initChart1();
+                if(idx === 4) initChart2();
+                if(idx === 5) initTechCloud();
+                if(idx === 6) initChart3();
+                
+                // 简单的入场动画复位
+                const slides = document.querySelectorAll('.swiper-slide');
+                slides.forEach(s => {
+                    const els = s.querySelectorAll('.animate__animated');
+                    els.forEach(el => {
+                        el.style.opacity = '1'; 
+                    });
+                });
+            }
+        }
+    });
+
+    // --- 3. 图表渲染函数 ---
+
+    // Chart 1: 趋势 (面积图)
+    let chart1 = null;
+    function initChart1(){
+        if(chart1) return;
+        chart1 = echarts.init(document.getElementById('chart1'));
+        chart1.setOption({
+            grid: { top: '15%', bottom: '10%', left: '12%', right: '5%' },
+            tooltip: { trigger: 'axis' },
+            xAxis: { type: 'category', data: trendData.years, axisLine: {lineStyle: {color: '#999'}} },
+            yAxis: { type: 'value', splitLine: {lineStyle: {type: 'dashed', color: '#eee'}} },
+            series: [{
+                data: trendData.counts,
+                type: 'line',
+                smooth: true,
+                symbol: 'none',
+                lineStyle: { color: '#B03A2E', width: 3 },
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                        { offset: 0, color: 'rgba(176, 58, 46, 0.4)' },
+                        { offset: 1, color: 'rgba(176, 58, 46, 0)' }
+                    ])
+                },
+                markPoint: {
+                    data: [
+                        { name: '高峰', coord: ['2010', 43088], value: '体制改革' },
+                        { name: '双创', coord: ['2014', 40549], value: '文艺座谈会' }
+                    ],
+                    itemStyle: { color: '#D4AC0D' }
+                }
+            }]
+        });
+    }
+
+    // Chart 2: 对比 (双折线)
+    let chart2 = null;
+    function initChart2(){
+        if(chart2) return;
+        chart2 = echarts.init(document.getElementById('chart2'));
+        chart2.setOption({
+            tooltip: { trigger: 'axis' },
+            legend: { top: 0, right: 10 },
+            grid: { top: '15%', bottom: '10%', left: '12%', right: '5%' },
+            xAxis: { type: 'category', data: yearsFull, axisLine: {lineStyle: {color: '#999'}} },
+            yAxis: { type: 'value', splitLine: { show: false } },
+            series: [
+                {
+                    name: '传统保护', type: 'line', data: tradData, smooth: true,
+                    itemStyle: { color: '#B03A2E' }, lineStyle: { width: 2, type: 'dashed' }
+                },
+                {
+                    name: '科技创新', type: 'line', data: techData, smooth: true,
+                    itemStyle: { color: '#1F618D' }, lineStyle: { width: 4 },
+                    markPoint: {
+                        data: [{ type: 'max', name: 'Max' }],
+                        itemStyle: { color: '#1F618D' }
+                    }
+                }
+            ]
+        });
+    }
+
+    // Tech Cloud: 简单的随机气泡动画
+    let cloudInited = false;
+    function initTechCloud(){
+        if(cloudInited) return;
+        const container = document.getElementById('techCloud');
+        const words = ['元宇宙', 'VR', '沉浸式', '数字化', '云展览', '5G', '全息', '算法', '交互', 'AI修复', '区块链'];
+        const colors = ['#3498DB', '#1ABC9C', '#9B59B6', '#F1C40F', '#E74C3C'];
+        
+        words.forEach((w, i) => {
+            const el = document.createElement('div');
+            el.innerText = w;
+            el.style.position = 'absolute';
+            el.style.color = colors[i % colors.length];
+            el.style.fontSize = (Math.random() * 20 + 14) + 'px';
+            el.style.fontWeight = 'bold';
+            el.style.left = (Math.random() * 70 + 10) + '%';
+            el.style.top = (Math.random() * 80 + 10) + '%';
+            el.className = 'animate__animated animate__pulse animate__infinite';
+            el.style.animationDuration = (Math.random() * 2 + 1) + 's';
+            container.appendChild(el);
+        });
+        cloudInited = true;
+    }
+
+    // Chart 3: 核心词 (条形)
+    let chart3 = null;
+    function initChart3(){
+        if(chart3) return;
+        chart3 = echarts.init(document.getElementById('chart3'));
+        chart3.setOption({
+            grid: { top: '5%', bottom: '5%', left: '20%', right: '15%' },
+            xAxis: { show: false },
+            yAxis: { 
+                type: 'category', 
+                data: topWords.map(t=>t.name), 
+                axisLine: {show: false},
+                axisTick: {show: false},
+                axisLabel: { color: '#333', fontSize: 14, fontWeight: 'bold' }
+            },
+            series: [{
+                type: 'bar',
+                data: topWords.map(t=>t.value),
+                barWidth: 15,
+                itemStyle: {
+                    borderRadius: [0, 10, 10, 0],
+                    color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
+                        { offset: 0, color: '#B03A2E' },
+                        { offset: 1, color: '#E6B0AA' }
+                    ])
+                },
+                label: { show: true, position: 'right', color: '#666' }
+            }]
+        });
+    }
+
+    window.onresize = function(){
+        chart1 && chart1.resize();
+        chart2 && chart2.resize();
+        chart3 && chart3.resize();
+    }
+</script>
+</body>
+</html>
